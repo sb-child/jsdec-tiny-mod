@@ -1,8 +1,7 @@
 package jsdec_tiny
 
 import (
-	"io/ioutil"
-	"os"
+	_ "embed"
 
 	"github.com/robertkrimen/otto"
 )
@@ -12,15 +11,10 @@ type Jsdec struct {
 	js_vm   *otto.Otto
 }
 
+//go:embed dec.js
+var fileByte []byte
+
 func (m *Jsdec) openFile() error {
-	file, err := os.Open("dec.js")
-	if err != nil {
-		return err
-	}
-	fileByte, err := ioutil.ReadAll(file)
-	if err != nil {
-		return err
-	}
 	m.js_text = string(fileByte)
 	return nil
 }
